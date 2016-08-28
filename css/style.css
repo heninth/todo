@@ -7,6 +7,8 @@ body {
   min-height: 340px;
   font-size: 16px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: url('../images/bg.jpg') no-repeat;
+  background-size: cover;
 }
 
 .task-board {
@@ -20,7 +22,7 @@ body {
 .task-board h1 {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 0.8em;
   font-size: 6em;
   margin-top: -0.75em;
   margin-left: -1.25em;
@@ -49,6 +51,8 @@ body {
   margin: 5px;
   padding: 5px;
   width: 200px;
+  min-height: 80px;
+  padding-bottom: 20px;
   text-align: left;
   background: #fefabc;
   box-shadow: 0px 4px 6px #555;
@@ -82,6 +86,7 @@ body {
   left: 0;
   padding: 0.5em 1em;
   width: 100%;
+  background: white;
   box-shadow: 0 -1px 15px 0px rgba(0, 0, 0, 0.2);
 }
 
@@ -93,7 +98,6 @@ body {
   box-sizing: border-box;
   margin: 0 0.5em;
   width: 100%;
-  padding-right: 1.5em;
 }
 
 .new-task input[type="text"] {
@@ -122,7 +126,8 @@ body {
 
 .new-task .filter {
   display: table-cell;
-  width: 18.2em;
+  text-align: right;
+  width: 20em;
 }
 
 .new-task .filter .helper-button {
