@@ -4,26 +4,42 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/csshake.min.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
     <div id="todo">
       <div class="task-board">
-        <task v-for="task in tasks" :text.sync="task.text" :complete.sync=task.complete :index=$index></task>
+        <task v-for="task in _tasks" :task="task" :index=$index></task>
       </div>
       <div class="new-task">
-        <input type="text" placeholder="What nedds to be done?" v-model="newTask" v-on:keyup.enter="addTask" autofocus>
+        <div v-show="onEdit" @click="cancelEdit" class="helper-button btn-esc">Esc</div>
+        <div class="input">
+          <input type="text" name="newTask" placeholder="What nedds to be done?" v-model="newTask" @keyup.enter="addTask" v-show="!onEdit" autofocus>
+          <input type="text" name="editTask" v-model="editTask" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-show="onEdit">
+        </div>
+
+        <div class="filter">
+          <div class="helper-button" :class="{active: stage == 'all'}" @click="changeStage('all')">All</div>
+          <div class="helper-button" :class="{active: stage == 'active'}" @click="changeStage('active')">Active</div>
+          <div class="helper-button" :class="{active: stage == 'complete'}" @click="changeStage('complete')">Complete</div>
+          <div class="helper-button" @click="toggleDeletePopup"><span class="fa fa-trash-o"></span></div>
+        </div>
+        <div class="delete-popup" v-show="onDelete">
+          <div class="helper-button btn-delete" @click="deleteTasks('all')">All</div>
+          <div class="helper-button btn-delete" @click="deleteTasks('active')">Active</div>
+          <div class="helper-button btn-delete" @click="deleteTasks('complete')">Complete</div>
+        </div>
       </div>
     </div>
 
     <template id="v-template_task">
-      <div class="task" :class="{complete: complete}">
+      <div class="task" :class="{complete: task.complete}" @dblclick="editTask">
         <div class="header">
-          <input type="checkbox" v-on:change="toggleComplete">
-          {{index}}
-          <i class="delete fa fa-times fa-lg" v-on:click.self.stop="deleteTask"></i>
+          <input type="checkbox" @change="toggleComplete" @click.stop v-model="task.complete">
+          <i class="delete fa fa-times fa-lg" @click.stop="deleteTask"></i>
         </div>
-        <p class="task-text" v-on:dblclick.self.stop="editTask">{{text}}</p>
+        <p class="task-text">{{task.text}}</p>
       </div>
     </template>
 
@@ -31,6 +47,8 @@
     <script src="js/jquery-3.1.0.js"></script>
     <script src="js/jquery-ui-1.12.0.js"></script>
     <script src="js/jquery.ui.touch-punch.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/task.vue.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
