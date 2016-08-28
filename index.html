@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <meta content="width=device-width,initial-scale=1" name=viewport>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/csshake.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -10,7 +11,7 @@
   <body>
     <div id="todo">
       <div class="task-board">
-        <task v-for="task in _tasks" :task="task" :index=$index></task>
+        <task v-for="task in _tasks" :task.sync="task" :index=$index></task>
       </div>
       <div class="new-task">
         <div v-show="onEdit" @click="cancelEdit" class="helper-button btn-esc">Esc</div>
@@ -19,13 +20,13 @@
           <input type="text" name="editTask" v-model="editTask" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-show="onEdit">
         </div>
 
-        <div class="filter">
+        <div class="filter" v-show="!onEdit">
           <div class="helper-button" :class="{active: stage == 'all'}" @click="changeStage('all')">All</div>
           <div class="helper-button" :class="{active: stage == 'active'}" @click="changeStage('active')">Active</div>
           <div class="helper-button" :class="{active: stage == 'complete'}" @click="changeStage('complete')">Complete</div>
           <div class="helper-button" @click="toggleDeletePopup"><span class="fa fa-trash-o"></span></div>
         </div>
-        <div class="delete-popup" v-show="onDelete">
+        <div class="delete-popup" v-show="onDelete && !onEdit">
           <div class="helper-button btn-delete" @click="deleteTasks('all')">All</div>
           <div class="helper-button btn-delete" @click="deleteTasks('active')">Active</div>
           <div class="helper-button btn-delete" @click="deleteTasks('complete')">Complete</div>

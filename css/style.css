@@ -143,4 +143,8 @@ body {
 
 .delete-popup .btn-delete {
   display: inline-block;
+  box-sizing: border-box;
+  border: 1px solid #d43f3a;
+  color: white;
+  background: #d9534f;;
 }

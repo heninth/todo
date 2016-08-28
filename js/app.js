@@ -7,7 +7,7 @@ var todoApp = new Vue({
     editIndex: null,
     tasks: taskStore.get(),
     stage: 'all',
-    onDelete: true
+    onDelete: false
   },
   computed : {
     _tasks: function () {
@@ -69,6 +69,23 @@ var todoApp = new Vue({
     },
     toggleDeletePopup: function () {
       this.onDelete = !this.onDelete
+    },
+    deleteTasks: function (stage) {
+      switch (stage) {
+        case 'all':
+          this.tasks = []
+          break;
+        case 'active':
+          this.tasks = this.tasks.filter(function (task) {
+            return task.complete
+          })
+          break;
+        case 'complete':
+          this.tasks = this.tasks.filter(function (task) {
+            return !task.complete
+          })
+          break;
+      }
     }
   },
   ready: function() {
