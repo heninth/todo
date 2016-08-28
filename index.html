@@ -11,9 +11,10 @@
   <body>
     <div id="todo">
       <div class="task-board">
+        <h1>Todo</h1>
         <task v-for="task in _tasks" :task.sync="task" :index=$index></task>
       </div>
-      <div class="new-task">
+      <div class="new-task v-cloak--hidden" v-cloak>
         <div v-show="onEdit" @click="cancelEdit" class="helper-button btn-esc">Esc</div>
         <div class="input">
           <input type="text" name="newTask" placeholder="What nedds to be done?" v-model="newTask" @keyup.enter="addTask" v-show="!onEdit" autofocus>
@@ -35,12 +36,12 @@
     </div>
 
     <template id="v-template_task">
-      <div class="task" :class="{complete: task.complete}" @dblclick="editTask">
-        <div class="header">
+      <div class="task" :class="{complete: task.complete}" @dblclick.self="editTask">
+        <div class="header" @dblclick.self="editTask">
           <input type="checkbox" @change="toggleComplete" @click.stop v-model="task.complete">
           <i class="delete fa fa-times fa-lg" @click.stop="deleteTask"></i>
         </div>
-        <p class="task-text">{{task.text}}</p>
+        <p class="task-text" @dblclick.self="editTask">{{task.text}}</p>
       </div>
     </template>
 

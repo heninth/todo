@@ -7,7 +7,7 @@ var todoApp = new Vue({
     editIndex: null,
     tasks: taskStore.get(),
     stage: 'all',
-    onDelete: false
+    onDelete: false,
   },
   computed : {
     _tasks: function () {
@@ -90,7 +90,7 @@ var todoApp = new Vue({
   },
   ready: function() {
     $('.task-board').height(($(window).height() - 65) + 'px')
-    $('input[type="text"]').focus(function(){
+    $('input[type="text"]').focus(function () {
       if (this.setSelectionRange) {
         var len = $(this).val().length
         this.setSelectionRange(len, len)
